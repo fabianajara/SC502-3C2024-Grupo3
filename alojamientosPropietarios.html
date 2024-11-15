@@ -97,9 +97,11 @@
     <section id="alojamientos-list-section" class="light">
       <h1 id="list-title" class="text-center">Alojamientos de NombreUsario</h1>
       <div id="alojamientos-container" class="container">
-        <div class="row">
+        <div class="row g-4">
+          <!-- 'g-4' agrega espaciado entre las columnas -->
           <!-- Ejemplo de tarjeta de alojamiento -->
-          <div class="col-md-4 alojamiento-card">
+          <div class="col-12 col-sm-6 col-md-4">
+            <!-- Columna para tarjetas -->
             <div class="card">
               <img
                 src="https://59d27daa.rocketcdn.me/wp-content/uploads/2023/07/How-to-Buy-a-Beach-House.jpeg"
@@ -114,12 +116,74 @@
                   Descripción breve del alojamiento.
                 </p>
                 <p class="card-text alojamiento-precio">$100 por noche</p>
-                <button class="btn btn-primary edit-alojamiento-btn">
-                  Editar
-                </button>
-                <button class="btn btn-danger delete-alojamiento-btn">
-                  Eliminar
-                </button>
+                <div class="card-footer">
+                  <div class="button-group">
+                    <button class="btn btn-primary edit-alojamiento-btn">
+                      Editar
+                    </button>
+                    <button class="btn btn-danger delete-alojamiento-btn">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img
+                src="https://a0.muscache.com/im/pictures/d03d9889-b6c3-42f5-ad84-2c6c4b7a57b2.jpg"
+                class="card-img-top"
+                alt="Imagen del alojamiento"
+              />
+              <div class="card-body">
+                <h5 class="card-title alojamiento-nombre">
+                  Nombre del Alojamiento
+                </h5>
+                <p class="card-text alojamiento-desc">
+                  Descripción breve del alojamiento.
+                </p>
+                <p class="card-text alojamiento-precio">$100 por noche</p>
+                <div class="card-footer">
+                  <div class="button-group">
+                    <button class="btn btn-primary edit-alojamiento-btn">
+                      Editar
+                    </button>
+                    <button class="btn btn-danger delete-alojamiento-btn">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="card">
+              <img
+                src="https://res.cloudinary.com/evolve-vacation-rental-network/images/f_auto,q_auto/v1642101202/evolvevacationrental.com/IsABeachHouseAGoodInvestment-Blog_Blog-Featured-Image-1/IsABeachHouseAGoodInvestment-Blog_Blog-Featured-Image-1.jpg?_i=AA"
+                class="card-img-top"
+                alt="Imagen del alojamiento"
+              />
+              <div class="card-body">
+                <h5 class="card-title alojamiento-nombre">
+                  Nombre del Alojamiento
+                </h5>
+                <p class="card-text alojamiento-desc">
+                  Descripción breve del alojamiento.
+                </p>
+                <p class="card-text alojamiento-precio">$100 por noche</p>
+                <div class="card-footer">
+                  <div class="button-group">
+                    <button class="btn btn-primary edit-alojamiento-btn">
+                      Editar
+                    </button>
+                    <button class="btn btn-danger delete-alojamiento-btn">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
