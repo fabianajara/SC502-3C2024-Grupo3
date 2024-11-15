@@ -1,3 +1,4 @@
+/* Navbar */
 .header {
   background-color: #f8f9fa;
 }
@@ -18,6 +19,7 @@
   border-radius: 50%;
 }
 
+/* Footer */
 .footer {
   background-color: #212529;
   padding: 1rem 0;
@@ -28,6 +30,7 @@
   color: #93928e;
 }
 
+/* Index */
 .slide-image {
   height: 680px;
   object-fit: cover;
@@ -71,4 +74,54 @@
   margin-top: 1.5rem;
   border-radius: 0.5rem;
   height: 38px;
+}
+
+/* Profile Info */
+.vh-100 {
+  height: 100vh;
+}
+
+.gradient-custom {
+  position: relative;
+  background-image: url("/imgs/imagenCasa3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.container {
+  z-index: 2;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+.profile-button {
+  background-color: #007bff;
+  border: none;
+}
+
+.profile-button:hover {
+  background-color: #0056b3;
+}
+
+.rounded-circle {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
