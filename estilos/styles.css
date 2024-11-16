@@ -305,3 +305,57 @@
     padding: 1rem;
   }
 }
+
+/* DetalleAlojamiento */
+
+section.light {
+  background: #f5f7fa;
+  padding: 2rem 0;
+}
+
+.alojamiento-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.carousel img {
+  height: 300px;
+  object-fit: cover;
+}
+
+.anfitrion-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.btn-primary {
+  background-color: #567EDC;
+  border-color: #567EDC;
+}
+
+.btn-primary:hover {
+  background-color: #4567b3;
+  border-color: #4567b3;
+}
+
+.rating .fa-star {
+  color: #ff9f1a;
+}
+
+.precio {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.servicios i {
+  margin-right: 5px;
+  color: #567EDC;
+}
+
+.details {
+  font-family: 'Roboto', sans-serif;
+}
