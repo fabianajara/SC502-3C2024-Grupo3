@@ -16,96 +16,194 @@
         <div class="container">
             <!-- Botón para volver atrás -->
             <div class="mb-4">
-                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver Atrás</button>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Atrás</button>
             </div>
 
-            <!-- Detalles del alojamiento -->
-            <div class="card shadow-sm alojamiento-card">
+            <!-- Detalles del primer alojamiento: Playa del Carmen -->
+            <div class="card shadow-sm alojamiento-card mb-4">
                 <div class="row">
-                    <!-- Carrusel de imágenes -->
                     <div class="col-md-6">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">
                             <ol class="carousel-indicators">
-                                <li class="active" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"></li>
-                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                                <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                                <li class="active" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="0"></li>
+                                <li data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="2"></li>
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="imgs/Hotel1.jpeg" class="d-block w-100" alt="Imagen principal del hotel">
+                                    <img src="imgs/hotel1.1.png" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="imgs/Hotel1.1.jpg" class="d-block w-100" alt="Lobby del hotel">
+                                    <img src="imgs/hotel1.2.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="imgs/Hotel1.2.jpeg" class="d-block w-100" alt="Habitación del hotel">
+                                    <img src="imgs/hotel1.3.jpeg" class="d-block w-100" alt="...">
                                 </div>
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Alojamiento en Playa del Carmen</h3>
+                            <p class="card-text">Este hermoso alojamiento ofrece una gran variedad de comodidades, ideal para unas vacaciones relajantes.</p>
+                            <p class="card-text"><strong>Capacidad:</strong> 6 personas</p>
+                            <p class="card-text"><strong>Precio por noche:</strong> ₡12000</p>
+                            <p class="card-text"><strong>Ubicación:</strong> Playa del Carmen, Quintana Roo, México</p>
+                            <form action="/reservar" method="POST">
+                                <button type="submit" class="btn btn-success">Reservar ahora</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Información del alojamiento -->
-                    <div class="col-md-6 details">
-                        <h2 class="fw-bold mb-3">Hotel Sunshine</h2>
-                        <!-- Calificación -->
-                        <div class="rating mb-3">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        </div>
-                        <!-- Ubicación -->
-                        <p class="text-primary fw-bold">
-                            <i class="fas fa-map-marker-alt me-2"></i>
-                            <span>Miami, Florida, USA</span>
-                        </p>
-                        <!-- Anfitrión -->
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="https://via.placeholder.com/50" class="rounded-circle me-3 anfitrion-img" alt="Foto anfitrión">
-                            <div>
-                                <span class="fw-bold">Anfitrión:</span>
-                                <span>Jane Doe</span>
+            <!-- Detalles del segundo alojamiento: Hotel Riviera Maya -->
+            <div class="card shadow-sm alojamiento-card mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li class="active" data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0"></li>
+                                <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="imgs/hotel1.1.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.2.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.3.jpeg" class="d-block w-100" alt="...">
+                                </div>
                             </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <!-- Descripción -->
-                        <p>Este es un hotel de lujo ubicado en el corazón de Miami, con habitaciones amplias y servicios premium para que disfrutes de una estancia única.</p>
-                        <!-- Precio -->
-                        <p class="precio">
-                            <i class="fas fa-dollar-sign"></i>
-                            150 por noche
-                        </p>
-                        <!-- Capacidad -->
-                        <p>
-                            <i class="fas fa-users me-2"></i>
-                            Capacidad: <strong>2</strong> personas
-                        </p>
-                        <!-- Servicios -->
-                        <p class="servicios">
-                            <i class="fas fa-wifi me-2"></i>WiFi gratuito
-                            <i class="fas fa-car me-2 ms-3"></i>Estacionamiento
-                            <i class="fas fa-swimmer me-2 ms-3"></i>Piscina
-                            <i class="fas fa-spa me-2 ms-3"></i>Spa
-                        </p>
-                        <!-- Botón Reservar -->
-                        <div>
-                            <button type="button" class="btn btn-primary btn-lg">Reservar Ahora</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Hotel Riviera Maya</h3>
+                            <p class="card-text">Un resort frente al mar con todas las comodidades que puedas necesitar, perfecto para familias o escapadas románticas.</p>
+                            <p class="card-text"><strong>Capacidad:</strong> 4 personas</p>
+                            <p class="card-text"><strong>Precio por noche:</strong> ₡15000</p>
+                            <p class="card-text"><strong>Ubicación:</strong> Riviera Maya, Quintana Roo, México</p>
+                            <form action="/reservar" method="POST">
+                                <button type="submit" class="btn btn-success">Reservar ahora</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles del tercer alojamiento: Hotel Tulum -->
+            <div class="card shadow-sm alojamiento-card mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="carouselExampleIndicators3" class="carousel slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li class="active" data-bs-target="#carouselExampleIndicators3" data-bs-slide-to="0"></li>
+                                <li data-bs-target="#carouselExampleIndicators3" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleIndicators3" data-bs-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="imgs/hotel1.1.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.2.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.3.jpeg" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators3" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators3" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Hotel Tulum</h3>
+                            <p class="card-text">Ubicado en la costa de Tulum, este hotel ofrece una experiencia única de lujo y naturaleza.</p>
+                            <p class="card-text"><strong>Capacidad:</strong> 2 personas</p>
+                            <p class="card-text"><strong>Precio por noche:</strong> ₡18000</p>
+                            <p class="card-text"><strong>Ubicación:</strong> Tulum, Quintana Roo, México</p>
+                            <form action="/reservar" method="POST">
+                                <button type="submit" class="btn btn-success">Reservar ahora</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalles del cuarto alojamiento: Hotel Cancún -->
+            <div class="card shadow-sm alojamiento-card mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="carouselExampleIndicators4" class="carousel slide" data-bs-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li class="active" data-bs-target="#carouselExampleIndicators4" data-bs-slide-to="0"></li>
+                                <li data-bs-target="#carouselExampleIndicators4" data-bs-slide-to="1"></li>
+                                <li data-bs-target="#carouselExampleIndicators4" data-bs-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="imgs/hotel1.1.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.2.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="imgs/hotel1.3.jpeg" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators4" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators4" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Hotel Cancún</h3>
+                            <p class="card-text">En el corazón de Cancún, este hotel te ofrece acceso a las mejores playas y una gran variedad de actividades.</p>
+                            <p class="card-text"><strong>Capacidad:</strong> 5 personas</p>
+                            <p class="card-text"><strong>Precio por noche:</strong> ₡14000</p>
+                            <p class="card-text"><strong>Ubicación:</strong> Cancún, Quintana Roo, México</p>
+                            <form action="/reservar" method="POST">
+                                <button type="submit" class="btn btn-success">Reservar ahora</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer th:replace="~{layout/plantilla :: footer}"></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
