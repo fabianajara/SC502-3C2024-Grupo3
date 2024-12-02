@@ -13,7 +13,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link href="estilos/styles.css" rel="stylesheet" />
+    <link href="estilos/stylesIndex.css" rel="stylesheet" />
   </head>
   <body>
     <header class="header">
@@ -80,7 +80,7 @@
           </div>
 
           <div>
-            <a class="btn btn-outline-dark" href="/login" role="button"
+            <a class="btn btn-outline-dark" href="login.html" role="button"
               >Log In</a
             >
           </div>
@@ -88,111 +88,112 @@
       </nav>
     </header>
 
-    <!-- Carrusel de Imágenes en Home -->
-    <div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="/imgs/imagenCasa2.jpg"
-            class="d-block w-100 slide-image"
-            alt="Slide 1"
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="/imgs/imagenCasa1.jpg"
-            class="d-block w-100 slide-image"
-            alt="Slide 2"
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="/imgs/imagenCasa3.jpg"
-            class="d-block w-100 slide-image"
-            alt="Slide 3"
-          />
-        </div>
-      </div>
-
-      <!-- Caja para ingresar filtros de Búsqueda -->
-      <div class="carousel-caption-static">
-        <h2>Empieza Tus Vacaciones Ahora</h2>
-        <p>Planea tus Vacaciones con Nosotros</p>
-
-        <!-- Caja de búsqueda simplificada -->
-        <form
-          action="/usuario/alojamientos/filtros/filtrar"
-          method="POST"
-          class="filtros-rapidos"
-        >
-          <div class="form-row">
-            <div class="form-group">
-              <label for="ubicacion">Ubicación:</label>
-              <input
-                type="text"
-                name="ubicacion"
-                id="ubicacion"
-                class="form-control"
-                placeholder="Ciudad, región..."
-              />
-            </div>
-            <div class="form-group">
-              <label for="precioInf">Precio mín:</label>
-              <input
-                type="number"
-                name="precioInf"
-                id="precioInf"
-                class="form-control"
-                placeholder="$0"
-              />
-            </div>
-            <div class="form-group">
-              <label for="precioSup">Precio máx:</label>
-              <input
-                type="number"
-                name="precioSup"
-                id="precioSup"
-                class="form-control"
-                placeholder="$500"
-              />
-            </div>
-            <div class="form-group">
-              <label for="capacidad">Capacidad</label>
-              <input
-                type="number"
-                name="capacidad"
-                id="capacidad"
-                class="form-control"
-                placeholder="Número de Personas"
-              />
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-outline-light">
-                Buscar
-              </button>
-            </div>
+    <!-- Contenido principal -->
+    <div class="main-content-index">
+      <!-- Carrusel de Imágenes en Home -->
+      <div id="carouselHome" class="carousel slide bg-dark" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="/imgs/imagenCasa2.jpg"
+              class="d-block w-100 slide-image"
+              alt="Slide 1"
+            />
           </div>
-        </form>
-      </div>
+          <div class="carousel-item">
+            <img
+              src="/imgs/imagenCasa1.jpg"
+              class="d-block w-100 slide-image"
+              alt="Slide 2"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/imgs/imagenCasa3.jpg"
+              class="d-block w-100 slide-image"
+              alt="Slide 3"
+            />
+          </div>
+        </div>
 
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselHome"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselHome"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+        <div class="carousel-caption-static">
+          <h2>Empieza Tus Vacaciones Ahora</h2>
+          <p>Planea tus Vacaciones con Nosotros</p>
+          <!-- Caja de búsqueda simplificada -->
+          <form
+            action="/usuario/alojamientos/filtros/filtrar"
+            method="POST"
+            class="filtros-rapidos"
+          >
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ubicacion">Ubicación:</label>
+                <input
+                  type="text"
+                  name="ubicacion"
+                  id="ubicacion"
+                  class="form-control"
+                  placeholder="Ciudad, región..."
+                />
+              </div>
+              <div class="form-group">
+                <label for="precioInf">Precio mín:</label>
+                <input
+                  type="number"
+                  name="precioInf"
+                  id="precioInf"
+                  class="form-control"
+                  placeholder="$0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="precioSup">Precio máx:</label>
+                <input
+                  type="number"
+                  name="precioSup"
+                  id="precioSup"
+                  class="form-control"
+                  placeholder="$500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="capacidad">Capacidad</label>
+                <input
+                  type="number"
+                  name="capacidad"
+                  id="capacidad"
+                  class="form-control"
+                  placeholder="Número de Personas"
+                />
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-outline-light">
+                  Buscar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselHome"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselHome"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
 
     <footer class="footer text-center">
