@@ -1,51 +1,40 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async () => {
+    const alojamientosList = document.getElementById('alojamiento-list');
 
-    let alojamientos = [];
-    const API_URL = 'http://localhost/SC502-3C2024-Grupo3/backend/alojamientos.php';  // URL local
+    try {
+        const response = await fetch('../backend/alojamientosHuespedes.php');
+        console.log('HTTP response status:', response.status); // Verifica el estado HTTP
+        const textResponse = await response.text(); // Obtén la respuesta como texto
+        console.log('Text response:', textResponse); // Verifica la respuesta completa
 
-    // Función para cargar los alojamientos
-    async function loadAlojamientos() {
-        try {
-            const response = await fetch(API_URL, {
-                method: 'GET'
-            });
-            if (response.ok) {
-                alojamientos = await response.json();  // Parsear la respuesta JSON
-                renderAlojamientos(alojamientos);  // Llamar a la función para renderizar los alojamientos
-            } else {
-                console.error("Error al obtener alojamientos");
-            }
-        } catch (err) {
-            console.error(err);
+        // Verifica si la respuesta es HTML (indicando un error)
+        if (textResponse.startsWith('<')) {
+            throw new Error('La respuesta es HTML, lo que indica un error en el servidor.');
         }
-    }
 
-    // Función para renderizar los alojamientos en el HTML
-    function renderAlojamientos(alojamientos) {
-        const alojamientoList = document.getElementById('alojamiento-list');
-        alojamientoList.innerHTML = '';  // Limpiar la lista antes de renderizar
+        const alojamientos = JSON.parse(textResponse); // Intenta convertir la respuesta a JSON
+        console.log('JSON response:', alojamientos); // Verifica la respuesta JSON
 
-        alojamientos.forEach(function (alojamiento) {
-            const alojamientoCard = document.createElement('div');
-            alojamientoCard.className = 'col-md-4 mb-3';
-            alojamientoCard.innerHTML = `
-            <div class="card">
-                <img src="${alojamiento.propiedad_imagen}" class="card-img-top" alt="Imagen de la propiedad">
-                <div class="card-body">
-                    <h5 class="card-title">${alojamiento.nombre}</h5>
-                    <p class="card-text">${alojamiento.descripcion}</p>
-                    <p class="card-text"><small class="text-muted">Tipo: ${alojamiento.tipo_propiedad}</small></p>
-                    <p class="card-text"><small class="text-muted">Ubicación: ${alojamiento.ubicacion}</small></p>
-                    <p class="card-text"><strong>Precio por noche: $${alojamiento.precio_noche}</strong></p>
-                    <p class="card-text"><small class="text-muted">Calificación: ${alojamiento.calificacion}</small></p>
-                    <p class="card-text">${alojamiento.disponibilidad ? 'Disponible' : 'No disponible'}</p>
+        if (!Array.isArray(alojamientos)) {
+            throw new Error('La respuesta no es un array');
+        }
+
+        alojamientos.forEach(alojamiento => {
+            const card = document.createElement('div');
+            card.className = 'col-md-4 mb-3';
+            card.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${alojamiento.nombre}</h5>
+                        <p class="card-text">${alojamiento.descripcion}</p>
+                        <p class="card-text">Precio por noche: $${alojamiento.precio_noche}</p>
+                    </div>
                 </div>
-            </div>
             `;
-            alojamientoList.appendChild(alojamientoCard);
+            alojamientosList.appendChild(card);
         });
+    } catch (error) {
+        console.error('Error al cargar los alojamientos:', error);
+        alojamientosList.innerHTML = 'Error al cargar los alojamientos';
     }
-
-    loadAlojamientos();  // Llamar a esta función para cargar los alojamientos al cargar la página
-
 });

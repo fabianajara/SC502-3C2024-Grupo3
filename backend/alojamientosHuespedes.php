@@ -1,28 +1,16 @@
 <?php
-// archivo alojamientos.php
-
-require 'dbConection.php';  // Incluye la conexión a la base de datos
-
+require 'dbConection.php'; // Asegúrate de que este archivo contenga la conexión a la base de datos
 header('Content-Type: application/json');
 
-// Función para obtener todos los alojamientos desde la base de datos
-function obtenerTodosLosAlojamientos() {
+try {
     global $pdo;
-    try {
-        // Consulta SQL para obtener todos los alojamientos
-        $sql = "SELECT * FROM Propiedad";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();  // Ejecutar la consulta
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);  // Retorna los resultados en formato array asociativo
-    } catch (Exception $e) {
-        logError("Error al obtener alojamientos: " . $e->getMessage());
-        return [];  // En caso de error, retornar un array vacío
-    }
+    // Realiza la consulta para obtener los alojamientos
+    $stmt = $pdo->query("SELECT id_alojamiento, nombre, descripcion, precio_noche, alojamiento_imagen FROM homeAwayDB.Alojamiento");
+    $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    echo json_encode($alojamientos); // Devuelve los resultados como JSON
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Error al obtener los alojamientos php']);
 }
-
-// Obtener todos los alojamientos
-$alojamientos = obtenerTodosLosAlojamientos();
-
-// Retornar los alojamientos en formato JSON
-echo json_encode($alojamientos);
 ?>
