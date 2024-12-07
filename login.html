@@ -65,83 +65,72 @@
               >Log In</a
             >
           </div>
+          <button id="logoutButton" class="btn btn-outline-danger">Cerrar Sesión</button>
         </div>
       </nav>
     </header>
 
     <!-- Main Section -->
-    <section
-      class="vh-100 gradient-custom d-flex align-items-center justify-content-center"
-    >
+    <section class="vh-100 gradient-custom d-flex align-items-center justify-content-center">
       <div class="overlay"></div>
-
+  
       <div class="container py-5" style="z-index: 2">
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white">
-              <div class="card-body p-5 text-center">
-                <div class="mb-md-5 mt-md-4 pb-5">
-                  <h2 class="fw-bold mb-2">Iniciar Sesion</h2>
-                  <p class="text-white-50 mb-5">
-                    Ingrese su usuario y contraseña
-                  </p>
-
-                  <!-- Formulario de inicio de sesión -->
-                  <form method="POST" action="/login">
-                    <div class="form-outline form-white mb-4">
-                      <input
-                        class="form-control form-control-lg"
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder="Email"
-                        required
-                      />
-                    </div>
-
-                    <div class="form-outline form-white mb-4">
-                      <input
-                        class="form-control form-control-lg"
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Password"
-                        required
-                      />
-                    </div>
-
-                    <p class="small mb-5 pb-lg-2">
-                      Olvidaste tu contraseña?
-                      <a class="text-white-50" href="/registro/recordar"
-                        >Recuperar Contraseña</a
-                      >
-                    </p>
-
-                    <button
-                      class="btn btn-outline-light btn-lg px-5"
-                      type="submit"
-                    >
-                      Iniciar Sesion
-                    </button>
-                  </form>
-                </div>
-                <div>
-                  <p class="mb-0">
-                    Aún no tienes una cuenta?
-                    <a href="/registro/nuevo" class="text-white-50 fw-bold"
-                      >Registrar</a
-                    >
-                  </p>
-                </div>
+          <div class="row d-flex justify-content-center">
+              <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                  <div class="card bg-dark text-white">
+                      <div class="card-body p-5 text-center">
+                          <div class="mb-md-5 mt-md-4 pb-5">
+                              <h2 class="fw-bold mb-2">Iniciar Sesion</h2>
+                              <p class="text-white-50 mb-5">Ingrese su usuario y contraseña</p>
+  
+                              <!-- Formulario de inicio de sesión -->
+                              <form id="loginForm">
+                                  <div class="form-outline form-white mb-4">
+                                      <input
+                                          class="form-control form-control-lg"
+                                          type="text"
+                                          name="username"
+                                          id="username"
+                                          placeholder="Email"
+                                          required
+                                      />
+                                  </div>
+  
+                                  <div class="form-outline form-white mb-4">
+                                      <input
+                                          class="form-control form-control-lg"
+                                          type="password"
+                                          name="password"
+                                          id="password"
+                                          placeholder="Password"
+                                          required
+                                      />
+                                  </div>
+  
+                                  <p class="small mb-5 pb-lg-2">
+                                      Olvidaste tu contraseña?
+                                      <a class="text-white-50" href="/registro/recordar">Recuperar Contraseña</a>
+                                  </p>
+  
+                                  <button class="btn btn-outline-light btn-lg px-5" type="submit">Iniciar Sesion</button>
+                              </form>
+                          </div>
+                          <div>
+                              <p class="mb-0">
+                                  Aún no tienes una cuenta?
+                                  <a href="/registro/nuevo" class="text-white-50 fw-bold">Registrar</a>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div id="error-message" class="mt-3" style="display: none">
+                      <h3 class="text-center text-white"></h3>
+                  </div>
               </div>
-            </div>
-            <div id="error-message" class="mt-3" style="display: none">
-              <h3 class="text-center text-white">Error al iniciar sesión</h3>
-            </div>
           </div>
-        </div>
       </div>
-    </section>
+  </section>
+  
 
     <!-- Footer -->
     <footer class="footer text-center">
@@ -165,5 +154,6 @@
 
     <!-- Bootstrap JS (opcional, para funcionalidades interactivas) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>
