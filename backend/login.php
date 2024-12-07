@@ -19,30 +19,30 @@ try {
     }
 
     // Consulta para obtener los datos del usuario
-    $stmt = $pdo->prepare("SELECT id_usuario, nombre, contrasena FROM homeAwayDB.Usuario WHERE username = :username");
+    $stmt = $pdo->prepare("
+    SELECT id_usuario, nombre, usuario_imagen, contrasena 
+    FROM homeAwayDB.Usuario 
+    WHERE username = :username
+");
     $stmt->bindParam(':username', $username);
 
-    // Ejecutar consulta
     if (!$stmt->execute()) {
         echo json_encode(['success' => false, 'message' => 'Error al ejecutar la consulta.']);
         exit();
     }
 
-    // Recuperar usuario
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verificar si el usuario existe y la contraseña es válida
     if ($usuario && password_verify($password, $usuario['contrasena'])) {
-        // Inicio de sesión exitoso
+        // Enviar datos del usuario al front-end
         echo json_encode([
             'success' => true,
             'message' => 'Inicio de sesión exitoso',
             'id_usuario' => $usuario['id_usuario'],
-            'nombre' => $usuario['nombre']
+            'nombre' => $usuario['nombre'],
+            'usuario_imagen' => $usuario['usuario_imagen'], 
         ]);
-    
     } else {
-        // Usuario no encontrado o contraseña incorrecta
         echo json_encode(['success' => false, 'message' => 'Credenciales incorrectas']);
     }
 } catch (Exception $e) {
@@ -51,4 +51,3 @@ try {
     error_log("Error en login: " . $e->getMessage());
     echo json_encode(['success' => false, 'message' => 'Error en el servidor']);
 }
-?>
