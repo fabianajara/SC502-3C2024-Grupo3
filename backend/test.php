@@ -3,13 +3,13 @@
 require 'dbConection.php';
 
 // Datos del nuevo usuario
-$nombre = "Nombre del Usuario"; // Cambia esto por el nombre del usuario deseado
-$username = "prueba";     // Cambia esto por el nombre de usuario deseado
-$email = "usuario@example.com";   // Cambia esto por el email deseado
+$nombre = "Luis"; // Cambia esto por el nombre del usuario deseado
+$username = "luisg";     // Cambia esto por el nombre de usuario deseado
+$email = "luisg@example.com";   // Cambia esto por el email deseado
 $password = "contra";  // Cambia esto por la contraseña deseada
 $telefono = "1234567890";         // Cambia esto por el teléfono deseado
-$rol = "1";                 // Cambia esto por el rol deseado (ej. "admin", "usuario")
-$usuario_imagen = "ruta/a/imagen.jpg"; // Cambia esto por la ruta a la imagen del usuario
+$rol = "3";                 // Cambia esto por el rol deseado (ej. "admin", "usuario")
+$usuario_imagen = "https://kellyweaverphotography.com/wp-content/uploads/2023/08/Denver-Dating-Profile-Photo-Men-5.jpg"; // Cambia esto por la ruta a la imagen del usuario
 
 // Hashear la contraseña
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

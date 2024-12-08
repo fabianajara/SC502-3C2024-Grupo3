@@ -25,7 +25,10 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             localStorage.setItem("usuario", JSON.stringify({
                 id: result.id_usuario,
                 nombre: result.nombre,
-                imagen: result.usuario_imagen, 
+                username: result.username,
+                email: result.email,
+                telefono: result.telefono,
+                imagen: result.usuario_imagen,
             }));
             // Redirigir al usuario en caso de éxito
             window.location.href = "/index.html";
