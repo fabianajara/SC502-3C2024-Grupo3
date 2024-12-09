@@ -24,6 +24,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             // Guardar datos del usuario en localStorage
             localStorage.setItem("usuario", JSON.stringify({
                 id: result.id_usuario,
+                rol: result.rol,
                 nombre: result.nombre,
                 username: result.username,
                 email: result.email,

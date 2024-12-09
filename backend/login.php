@@ -20,7 +20,7 @@ try {
 
     // Consulta para obtener los datos del usuario
     $stmt = $pdo->prepare("
-    SELECT id_usuario, nombre, username, email, telefono, usuario_imagen, contrasena 
+    SELECT id_usuario, rol, nombre, username, email, telefono, usuario_imagen, contrasena 
     FROM homeAwayDB.Usuario 
     WHERE username = :username
 ");
@@ -39,6 +39,7 @@ try {
             'success' => true,
             'message' => 'Inicio de sesión exitoso',
             'id_usuario' => $usuario['id_usuario'],
+            'rol' => $usuario['rol'],
             'nombre' => $usuario['nombre'],
             'username' => $usuario['username'],
             'email' => $usuario['email'],
