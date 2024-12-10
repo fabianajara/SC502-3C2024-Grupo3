@@ -100,5 +100,38 @@ document.getElementById('save-alojamiento-btn').addEventListener('click', async 
     }
 });
 
+// Función para eliminar alojamiento
+async function eliminarAlojamiento(id) {
+    const confirmacion = confirm("¿Estás seguro de que deseas eliminar este alojamiento?");
+    if (!confirmacion) return; // Si el usuario cancela, no hacer nada
+
+    try {
+        const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php?id_alojamiento=${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_alojamiento: id })
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            messageContainer.innerText = result.message || "Alojamiento eliminado exitosamente.";
+            messageContainer.classList.remove("text-danger");
+            messageContainer.classList.add("text-success");
+            await cargarAlojamientos(); // Recargar alojamientos después de eliminar
+        } else {
+            messageContainer.innerText = `Error al eliminar alojamiento: ${result.error}`;
+            messageContainer.classList.add("text-danger");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        messageContainer.innerText = "Error al conectar con el servidor.";
+        messageContainer.classList.add("text-danger");
+    }
+}
+
+
 // Cargar alojamientos al inicio
 cargarAlojamientos();
