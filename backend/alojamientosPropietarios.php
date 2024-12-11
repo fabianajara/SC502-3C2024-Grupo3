@@ -147,6 +147,15 @@ function actualizarAlojamiento()
     }
 
     try {
+        // Obtener el alojamiento actual para mantener la imagen si no se proporciona una nueva
+        $stmt = $pdo->prepare("SELECT alojamiento_imagen FROM homeAwayDB.Alojamiento WHERE id_alojamiento = ?");
+        $stmt->execute([$data['id_alojamiento']]);
+        $alojamientoActual = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Si no se proporciona una nueva imagen, usar la existente
+        $imagenUrl = !empty($data['imagenUrl']) ? $data['imagenUrl'] : $alojamientoActual['alojamiento_imagen'];
+
+        // Actualizar los campos del alojamiento
         $stmt = $pdo->prepare("UPDATE homeAwayDB.Alojamiento SET nombre=?, descripcion=?, tipo_alojamiento=?, num_habitaciones=?, num_banos=?, capacidad=?, precio_noche=?, ubicacion=?, calificacion=?, disponibilidad=?, alojamiento_imagen=? WHERE id_alojamiento=?");
 
         $stmt->execute([
@@ -160,7 +169,7 @@ function actualizarAlojamiento()
             $data['ubicacion'],
             $data['calificacion'],
             isset($data['activo']) ? 1 : 0,
-            $data['imagenUrl'],
+            $imagenUrl,
             $data['id_alojamiento']
         ]);
 

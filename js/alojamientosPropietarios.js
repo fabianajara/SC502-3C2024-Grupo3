@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
     let isEditMode = false;
 
     // Función para cargar alojamientos
@@ -73,16 +72,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-alojamiento-btn').addEventListener('click', async () => {
         const formData = new FormData(document.getElementById('form-alojamiento'));
         const data = Object.fromEntries(formData.entries());
-    
+
         // Verificar si hay cambios en los campos
         const hasChanges = Object.keys(originalData).some(key => originalData[key] !== data[key]);
-    
+
         if (!hasChanges) {
             mostrarAlerta("No se realizaron cambios en el alojamiento.", "info");
             modal.hide();
             return; // No hacer nada si no hay cambios
         }
-    
+
         const usuario = JSON.parse(localStorage.getItem("usuario"));
         if (usuario) {
             data.id_usuario = usuario.id;
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarAlerta("Error: No hay usuario logueado.", "danger");
             return;
         }
-    
+
         try {
             const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
                 method: 'PUT',
@@ -99,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 await cargarAlojamientos();
                 modal.hide();
@@ -113,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
             mostrarAlerta("Error al conectar con el servidor.", "danger");
         }
-    });    
+    });
 
     // Función para eliminar alojamiento
     async function eliminarAlojamientos(id) {
@@ -187,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('ubicacion').value = alojamiento.ubicacion;
                 document.getElementById('calificacion').value = alojamiento.calificacion;
                 document.getElementById('activo').checked = alojamiento.disponibilidad === 1; // Suponiendo que disponibilidad es un booleano
+                document.getElementById('imagenUrl').value = alojamiento.alojamiento_imagen;
 
                 originalData = { ...alojamiento }; // Guardar los datos originales
                 isEditMode = true; // Cambiar a modo edición
@@ -198,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error al conectar con el servidor:', error);
         }
     }
+
     // Cargar alojamientos al inicio
     cargarAlojamientos();
 });
