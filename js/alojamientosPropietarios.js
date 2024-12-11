@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = new bootstrap.Modal(document.getElementById('modal-alojamiento'));
     const alojamientosContainer = document.getElementById('alojamientos-container');
     const alertContainer = document.getElementById('alert-container'); // Contenedor para alertas
+    
+    document.querySelectorAll('.edit-alojamiento-btn').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const id = event.target.getAttribute('data-id');
+            await cargarAlojamientoPorId(id); // Cargar datos para editar
+        });
+    });
+    
 
     let isEditMode = false;
 
@@ -148,6 +156,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 150); // Tiempo de espera para que la animación 'fade' complete
         }, 3000); // Tiempo en milisegundos
     }
+    async function cargarAlojamientoPorId(id) {
+        try {
+            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php?id_alojamiento=${id}`);
+            const alojamiento = await response.json();
+    
+            if (response.ok && alojamiento) {
+                // Rellenar el formulario con los datos del alojamiento
+                document.querySelector('input[name="id_alojamiento"]').value = alojamiento.id_alojamiento;
+                document.getElementById('nombre').value = alojamiento.nombre;
+                document.getElementById('descripcion').value = alojamiento.descripcion;
+                document.getElementById('alojamientoTipo').value = alojamiento.tipo_alojamiento;
+                document.getElementById('numHabitaciones').value = alojamiento.num_habitaciones;
+                document.getElementById('numBanos').value = alojamiento.num_banos;
+                document.getElementById('capacidad').value = alojamiento.capacidad;
+                document.getElementById('precioNoche').value = alojamiento.precio_noche;
+                document.getElementById('ubicacion').value = alojamiento.ubicacion;
+                document.getElementById('calificacion').value = alojamiento.calificacion;
+                document.getElementById('activo').checked = alojamiento.disponibilidad === 1; 
+
+                isEditMode = true; // Cambiar a modo edición
+                modal.show(); // Mostrar el modal
+            } else {
+                console.error("Error al cargar el alojamiento:", response.statusText);
+            }
+        } catch (error) {
+            console.error('Error al conectar con el servidor:', error);
+        }
+    }
+    
 
     // Cargar alojamientos al inicio
     cargarAlojamientos();

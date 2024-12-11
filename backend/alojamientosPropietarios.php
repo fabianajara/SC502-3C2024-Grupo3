@@ -9,7 +9,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        obtenerAlojamientos();
+        if (isset($_GET['id_alojamiento'])) {
+            obtenerAlojamientoPorId($_GET['id_alojamiento']);
+        } else {
+            obtenerAlojamientos();
+        }
         break;
 
     case 'POST':
@@ -102,5 +106,27 @@ function eliminarAlojamiento()
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Error al eliminar alojamiento: ' . $e->getMessage()]);
+    }
+}
+
+// Función para obtener un solo alojamiento por ID
+function obtenerAlojamientoPorId($id)
+{
+    global $pdo;
+
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM homeAwayDB.Alojamiento WHERE id_alojamiento = ?");
+        $stmt->execute([$id]);
+        $alojamiento = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($alojamiento) {
+            echo json_encode($alojamiento);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Alojamiento no encontrado.']);
+        }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error al obtener el alojamiento: ' . $e->getMessage()]);
     }
 }
