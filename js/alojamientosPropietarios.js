@@ -3,15 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const alojamientosContainer = document.getElementById('alojamientos-container');
     const alertContainer = document.getElementById('alert-container'); // Contenedor para alertas
 
-    // Boton para cargar los datos en el modal de actiualizar datos
-    document.querySelectorAll('.edit-alojamiento-btn').forEach(button => {
-        button.addEventListener('click', async (event) => {
-            const id = event.target.getAttribute('data-id');
-            await cargarAlojamientoPorId(id);
-        });
-    });
-
     let isEditMode = false;
+    let originalData = {}; // Variable para almacenar los datos originales
 
     // Función para cargar alojamientos
     async function cargarAlojamientos() {
@@ -39,25 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Asignar eventos a los botones después de que se han creado
-                document.querySelectorAll('.edit-alojamiento-btn').forEach(button => {
-                    button.addEventListener('click', async (event) => {
-                        const id = event.target.getAttribute('data-id');
-                        await cargarAlojamientoPorId(id); // Cargar datos para editar
-                    });
-                });
-
-                document.querySelectorAll('.delete-alojamiento-btn').forEach(button => {
-                    button.addEventListener('click', async (event) => {
-                        const id = event.target.getAttribute('data-id');
-                        await eliminarAlojamientos(id); // Llamar a la función para eliminar
-                    });
-                });
+                asignarEventosBotones();
             } else {
                 console.error("La respuesta no es un array válido", alojamientos);
             }
         } catch (error) {
             console.error('Error al cargar alojamientos:', error);
         }
+    }
+
+    function asignarEventosBotones() {
+        document.querySelectorAll('.edit-alojamiento-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const id = event.target.getAttribute('data-id');
+                await cargarAlojamientoPorId(id); // Cargar datos para editar
+            });
+        });
+
+        document.querySelectorAll('.delete-alojamiento-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const id = event.target.getAttribute('data-id');
+                await eliminarAlojamientos(id); // Llamar a la función para eliminar
+            });
+        });
     }
 
     // Función para abrir el modal
@@ -73,13 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(document.getElementById('form-alojamiento'));
         const data = Object.fromEntries(formData.entries());
 
-        // Verificar si hay cambios en los campos
-        const hasChanges = Object.keys(originalData).some(key => originalData[key] !== data[key]);
-
-        if (!hasChanges) {
-            mostrarAlerta("No se realizaron cambios en el alojamiento.", "info");
-            modal.hide();
-            return; // No hacer nada si no hay cambios
+        // Verificar si todos los campos requeridos están llenos
+        if (!data.nombre || !data.descripcion || !data.alojamientoTipo || !data.numHabitaciones || !data.numBanos || !data.capacidad || !data.precioNoche || !data.ubicacion || !data.calificacion) {
+            mostrarAlerta("Por favor, completa todos los campos requeridos.", "danger");
+            return;
         }
 
         const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -91,22 +85,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+            let response;
+            if (isEditMode) {
+                // Si estamos en modo edición, usamos PUT
+                response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            } else {
+                // Si estamos creando un nuevo alojamiento, usamos POST
+                response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            }
 
             const result = await response.json();
 
             if (response.ok) {
                 await cargarAlojamientos();
                 modal.hide();
-                mostrarAlerta("Alojamiento actualizado exitosamente.", "success");
+                mostrarAlerta(isEditMode ? "Alojamiento actualizado exitosamente." : "Alojamiento agregado exitosamente.", "success");
             } else {
-                mostrarAlerta(`Error al actualizar alojamiento: ${result.error}`, "danger");
+                mostrarAlerta(`Error al ${isEditMode ? 'actualizar' : 'agregar'} alojamiento: ${result.error}`, "danger");
             }
         } catch (error) {
             console.error('Error:', error);
@@ -120,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!confirmacion) return;
 
         try {
-            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php?id_alojamiento=${id}`, {
+            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -159,14 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
             alerta.classList.remove('show');
             alerta.classList.add('fade');
 
-            // Esperar a que termine la animación antes de eliminar el elemento del DOM
             setTimeout(() => {
                 alertContainer.removeChild(alerta);
             }, 150); // Tiempo de espera para que la animación 'fade' complete
         }, 3000); // Tiempo en milisegundos
     }
-
-    let originalData = {}; // Variable para almacenar los datos originales
 
     async function cargarAlojamientoPorId(id) {
         try {
