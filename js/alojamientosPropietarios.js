@@ -2,14 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = new bootstrap.Modal(document.getElementById('modal-alojamiento'));
     const alojamientosContainer = document.getElementById('alojamientos-container');
     const alertContainer = document.getElementById('alert-container'); // Contenedor para alertas
-    
+
+    // Boton para cargar los datos en el modal de actiualizar datos
     document.querySelectorAll('.edit-alojamiento-btn').forEach(button => {
         button.addEventListener('click', async (event) => {
             const id = event.target.getAttribute('data-id');
-            await cargarAlojamientoPorId(id); // Cargar datos para editar
+            await cargarAlojamientoPorId(id);
         });
     });
-    
+
 
     let isEditMode = false;
 
@@ -72,7 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-alojamiento-btn').addEventListener('click', async () => {
         const formData = new FormData(document.getElementById('form-alojamiento'));
         const data = Object.fromEntries(formData.entries());
-
+    
+        // Verificar si hay cambios en los campos
+        const hasChanges = Object.keys(originalData).some(key => originalData[key] !== data[key]);
+    
+        if (!hasChanges) {
+            mostrarAlerta("No se realizaron cambios en el alojamiento.", "info");
+            modal.hide();
+            return; // No hacer nada si no hay cambios
+        }
+    
         const usuario = JSON.parse(localStorage.getItem("usuario"));
         if (usuario) {
             data.id_usuario = usuario.id;
@@ -80,30 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarAlerta("Error: No hay usuario logueado.", "danger");
             return;
         }
-
+    
         try {
-            const response = await fetch('http://localhost:8000/backend/alojamientosPropietarios.php', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
-
+    
             const result = await response.json();
-
+    
             if (response.ok) {
                 await cargarAlojamientos();
                 modal.hide();
-                mostrarAlerta("Alojamiento guardado exitosamente.", "success");
+                mostrarAlerta("Alojamiento actualizado exitosamente.", "success");
             } else {
-                mostrarAlerta(`Error al guardar alojamiento: ${result.error}`, "danger");
+                mostrarAlerta(`Error al actualizar alojamiento: ${result.error}`, "danger");
             }
         } catch (error) {
             console.error('Error:', error);
             mostrarAlerta("Error al conectar con el servidor.", "danger");
         }
-    });
+    });    
 
     // Función para eliminar alojamiento
     async function eliminarAlojamientos(id) {
@@ -147,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Ocultar la alerta después de 5 segundos
         setTimeout(() => {
-            alerta.classList.remove('show'); 
-            alerta.classList.add('fade'); 
+            alerta.classList.remove('show');
+            alerta.classList.add('fade');
 
             // Esperar a que termine la animación antes de eliminar el elemento del DOM
             setTimeout(() => {
@@ -156,11 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 150); // Tiempo de espera para que la animación 'fade' complete
         }, 3000); // Tiempo en milisegundos
     }
+
+    let originalData = {}; // Variable para almacenar los datos originales
+
     async function cargarAlojamientoPorId(id) {
         try {
             const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php?id_alojamiento=${id}`);
             const alojamiento = await response.json();
-    
+
             if (response.ok && alojamiento) {
                 // Rellenar el formulario con los datos del alojamiento
                 document.querySelector('input[name="id_alojamiento"]').value = alojamiento.id_alojamiento;
@@ -173,8 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('precioNoche').value = alojamiento.precio_noche;
                 document.getElementById('ubicacion').value = alojamiento.ubicacion;
                 document.getElementById('calificacion').value = alojamiento.calificacion;
-                document.getElementById('activo').checked = alojamiento.disponibilidad === 1; 
+                document.getElementById('activo').checked = alojamiento.disponibilidad === 1; // Suponiendo que disponibilidad es un booleano
 
+                originalData = { ...alojamiento }; // Guardar los datos originales
                 isEditMode = true; // Cambiar a modo edición
                 modal.show(); // Mostrar el modal
             } else {
@@ -184,8 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error al conectar con el servidor:', error);
         }
     }
-    
-
     // Cargar alojamientos al inicio
     cargarAlojamientos();
 });

@@ -20,6 +20,10 @@ switch ($method) {
         agregarAlojamiento();
         break;
 
+    case 'PUT':
+        actualizarAlojamiento();
+        break;
+
     case 'DELETE':
         eliminarAlojamiento();
         break;
@@ -128,5 +132,41 @@ function obtenerAlojamientoPorId($id)
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Error al obtener el alojamiento: ' . $e->getMessage()]);
+    }
+}
+
+function actualizarAlojamiento()
+{
+    global $pdo;
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    if (!isset($data['id_alojamiento']) || empty($data['id_alojamiento'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'El ID del alojamiento es requerido.']);
+        return;
+    }
+
+    try {
+        $stmt = $pdo->prepare("UPDATE homeAwayDB.Alojamiento SET nombre=?, descripcion=?, tipo_alojamiento=?, num_habitaciones=?, num_banos=?, capacidad=?, precio_noche=?, ubicacion=?, calificacion=?, disponibilidad=?, alojamiento_imagen=? WHERE id_alojamiento=?");
+
+        $stmt->execute([
+            $data['nombre'],
+            $data['descripcion'],
+            $data['alojamientoTipo'],
+            $data['numHabitaciones'],
+            $data['numBanos'],
+            $data['capacidad'],
+            $data['precioNoche'],
+            $data['ubicacion'],
+            $data['calificacion'],
+            isset($data['activo']) ? 1 : 0,
+            $data['imagenUrl'],
+            $data['id_alojamiento']
+        ]);
+
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error al actualizar alojamiento: ' . $e->getMessage()]);
     }
 }
