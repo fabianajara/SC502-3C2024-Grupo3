@@ -9,7 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para cargar alojamientos
     async function cargarAlojamientos() {
         try {
-            const response = await fetch('http://localhost:8000/backend/alojamientosPropietarios.php');
+            const usuario = JSON.parse(localStorage.getItem("usuario"));
+            if (!usuario || !usuario.id) {
+                mostrarAlerta("Error: Usuario no logueado.", "danger");
+                return;
+            }
+
+            // Enviar el id_usuario como parámetro en la solicitud
+            const response = await fetch(`http://localhost:8000/backend/alojamientosPropietarios.php?id_usuario=${usuario.id}`);
             const alojamientos = await response.json();
 
             if (Array.isArray(alojamientos)) {
@@ -19,15 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.className = 'col-12 col-sm-6 col-md-4 mb-4';
                     card.innerHTML =
                         `<div class='card'>
-                            <img src="${alojamiento.alojamiento_imagen}" class='card-img-top' alt="${alojamiento.nombre}">
-                            <div class='card-body'>
-                                <h5 class='card-title'>${alojamiento.nombre}</h5>
-                                <p class='card-text'>${alojamiento.descripcion}</p>
-                                <p class='card-text'>$${alojamiento.precio_noche} por noche</p>
-                                <button class='btn btn-primary edit-alojamiento-btn' data-id="${alojamiento.id_alojamiento}">Editar</button>
-                                <button class='btn btn-danger delete-alojamiento-btn' data-id="${alojamiento.id_alojamiento}">Eliminar</button>
-                            </div>
-                        </div>`;
+                        <img src="${alojamiento.alojamiento_imagen}" class='card-img-top' alt="${alojamiento.nombre}">
+                        <div class='card-body'>
+                            <h5 class='card-title'>${alojamiento.nombre}</h5>
+                            <p class='card-text'>${alojamiento.descripcion}</p>
+                            <p class='card-text'>$${alojamiento.precio_noche} por noche</p>
+                            <button class='btn btn-primary edit-alojamiento-btn' data-id="${alojamiento.id_alojamiento}">Editar</button>
+                            <button class='btn btn-danger delete-alojamiento-btn' data-id="${alojamiento.id_alojamiento}">Eliminar</button>
+                        </div>
+                    </div>`;
                     alojamientosContainer.appendChild(card);
                 });
 

@@ -38,15 +38,27 @@ function obtenerAlojamientos()
 {
     global $pdo;
 
-    try {
-        $stmt = $pdo->query("SELECT * FROM homeAwayDB.Alojamiento");
-        $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($alojamientos);
-    } catch (Exception $e) {
-        http_response_code(500);
-        echo json_encode(['error' => 'Error al obtener los alojamientos: ' . $e->getMessage()]);
+    // Verificar si se recibió un id_usuario en la solicitud
+    if (isset($_GET['id_usuario'])) {
+        $id_usuario = $_GET['id_usuario'];
+        try {
+            // Modificar la consulta SQL para filtrar por el id_usuario
+            $stmt = $pdo->prepare("SELECT * FROM homeAwayDB.Alojamiento WHERE id_usuario = ?");
+            $stmt->execute([$id_usuario]);
+            $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Devolver los alojamientos correspondientes al usuario
+            echo json_encode($alojamientos);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al obtener los alojamientos: ' . $e->getMessage()]);
+        }
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'El ID de usuario es requerido.']);
     }
 }
+
 
 // Función para agregar alojamiento
 function agregarAlojamiento()
