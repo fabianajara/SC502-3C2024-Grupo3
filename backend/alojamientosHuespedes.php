@@ -8,23 +8,37 @@ header('Content-Type: application/json');
 
 try {
     global $pdo;
-    // Realiza la consulta para obtener los alojamientos
+
+    if (!$pdo) {
+        die(json_encode(['error' => 'Conexión a la base de datos fallida']));
+    }
+
     $stmt = $pdo->query("SELECT 
-            a.id_usuario AS anfitrion_id,
-            a.nombre AS alojamiento_nombre, 
-            a.descripcion, 
-            a.precio_noche, 
-            a.alojamiento_imagen, 
-            a.ubicacion,
-            u.nombre AS anfitrion_nombre,
-            u.usuario_imagen AS anfitrion_imagen
-        FROM homeAwayDB.Alojamiento a
-        LEFT JOIN homeAwayDB.Usuario u
-        ON a.id_usuario = u.id_usuario");
+        a.id_usuario AS anfitrion_id,
+        a.nombre AS alojamiento_nombre, 
+        a.descripcion, 
+        a.precio_noche, 
+        a.alojamiento_imagen, 
+        a.ubicacion,
+        u.nombre AS anfitrion_nombre,
+        u.usuario_imagen AS anfitrion_imagen
+    FROM homeAwayDB.Alojamiento a
+    LEFT JOIN homeAwayDB.Usuario u
+    ON a.id_usuario = u.id_usuario");
+
+    if (!$stmt) {
+        die(json_encode(['error' => 'Error en la consulta SQL']));
+    }
+
     $alojamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode($alojamientos); // Devuelve los resultados como JSON
+    if (empty($alojamientos)) {
+        echo json_encode(['error' => 'No se encontraron alojamientos']);
+    } else {
+        echo json_encode($alojamientos, JSON_PRETTY_PRINT);
+    }
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Error al obtener los alojamientos php']);
+    echo json_encode(['error' => 'Excepción del servidor: ' . $e->getMessage()]);
 }
+?>
