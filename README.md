@@ -25,7 +25,7 @@
 ![Filtro de búsqueda](imgsReadme/HA_Filtros.jpg)
 
 ### Vista de todos los alojamientos
-![Filtro de búsqueda](imgsReadme/HA_Aojamientos.jpg)
+![Filtro de búsqueda](imgsReadme/HA_Alojamientos.jpg)
 
 ### Funcinalidad de reservaciones
 ![Filtro de búsqueda](imgsReadme/HA_Reservas.jpg)
